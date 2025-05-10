@@ -9,10 +9,22 @@ void draw_state(std::vector<int>& v,
     unsigned int red, 
     unsigned int blue )
 {
-    int index = 0;
+    unsigned int index = 0;
     for(int i : v)
     {
-        SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+        if (index == red)
+        {
+            SDL_SetRenderDrawColor(renderer, 255,0,0,255);
+        }
+        else if (index == blue)
+        {
+            SDL_SetRenderDrawColor(renderer, 0,0,255,255);
+        }
+        else
+        {
+            SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+        }
+        // Draw the current state of the sort
         SDL_RenderDrawLine(renderer, index, 99, index, i);
         index += 1;
     }
