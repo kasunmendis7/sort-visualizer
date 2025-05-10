@@ -4,6 +4,19 @@
 #include <ranges>
 #include <algorithm>
 
+void draw_state(std::vector<int>& v, 
+    SDL_Renderer* renderer, 
+    unsigned int red, 
+    unsigned int blue )
+{
+    int index = 0;
+    for(int i : v)
+    {
+        SDL_SetRenderDrawColor(renderer, 255,255,255,255);
+        SDL_RenderDrawLine(renderer, index, 99, index, i);
+        index += 1;
+    }
+}
 int main()
 {
     std::random_device rd;
@@ -29,6 +42,16 @@ int main()
             {
                 std::swap(v[i], v[j]);
             }
+            // Clear the screen
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_RenderClear(renderer);
+            // Draw the current state of the sort
+            draw_state(v, renderer, i, j);
+            
+            // Show to window
+            SDL_RenderPresent(renderer);
+            // Wait for a short time
+            SDL_Delay(10);
         }
     }
     for (int i : v)
